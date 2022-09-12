@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int fun(vector<int>& nums) 
+    {
+        // sliding window and hashmap 
+        
+      
+        map<int,int> mpp;
+        int j=0;  // indicate the starting of sequence 
+        int maxi=INT_MIN;
+        int n=nums.size();
+        int cursum=0;
+        
+        for(int i=0;i<n;i++)
+        {
+           while(mpp.find(nums[i])!=mpp.end())  // same element is present 
+           {
+               mpp.erase(nums[j]);
+               cursum=cursum-nums[j];
+               j++;
+           }
+           
+             cursum=cursum+nums[i];
+             maxi=max(maxi,cursum);
+             mpp[nums[i]]=i;
+    
+        }
+        
+        return maxi;
+    }
+
+
+int main() 
+{
+    
+    int n;
+    cin>>n;
+    
+    vector<int>v (n);
+    
+    for(int i=0;i<n;i++)
+    {
+        cin>>v[i];
+    }
+    
+    int ans = fun(v);
+    cout<<ans<<endl;
+    
+    return 0;
+}
